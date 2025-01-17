@@ -3,13 +3,14 @@ FROM ubuntu:latest
 # Créer un utilisateur non-root avec un répertoire personnel
 RUN useradd -ms /bin/bash appuser
 
-# Installer les dépendances nécessaires et configurer les locales et le fuseau horaire
+# Installer les dépendances nécessaires, configurer les locales, fuseau horaire, et restaurer le contenu minimisé
 RUN apt-get update && \
-    apt-get install -y vim vim-runtime ttyd locales tzdata && \
+    apt-get install -y vim vim-runtime ttyd locales tzdata man-db && \
     locale-gen fr_FR.UTF-8 && \
     update-locale LANG=fr_FR.UTF-8 && \
     ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
+    unminimize && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
