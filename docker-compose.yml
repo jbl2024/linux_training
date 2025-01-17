@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  web-terminal:
+    build: .
+    ports:
+      - "7681:7681"  # Expose the ttyd web terminal on port 7681
+    container_name: web-terminal
+    restart: unless-stopped
