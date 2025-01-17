@@ -10,7 +10,6 @@ RUN apt-get update && \
     update-locale LANG=fr_FR.UTF-8 && \
     ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
-    unminimize && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
