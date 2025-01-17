@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM ubuntu:latest
 
 # Créer un utilisateur non-root avec un répertoire personnel
 RUN useradd -ms /bin/bash appuser
