@@ -17,6 +17,7 @@ EXPOSE 7681
 
 # Passer à l'utilisateur non-root
 USER appuser
+WORKDIR /home/appuser
 
 # Démarrer ttyd avec bash
 CMD ["ttyd", "--writable", "bash"]
