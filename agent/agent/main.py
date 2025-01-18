@@ -8,6 +8,10 @@ from smolagents import ToolCallingAgent, DuckDuckGoSearchTool, HfApiModel
 
 console = Console()
 
+def clean_unicode(text):
+    """Convertit les séquences Unicode échappées en caractères normaux"""
+    return bytes(text, 'ascii').decode('unicode-escape')
+
 def run_ai(prompt):
     model_id = "meta-llama/Llama-3.3-70B-Instruct"
     
@@ -27,7 +31,7 @@ def run_ai(prompt):
         
         augmented_prompt = f"Tu réponds à cette question qui concerne l'utilisation de linux: {prompt}"
         res = agent.run(augmented_prompt)
-        return res
+        return clean_unicode(res)
 
 def format_output(question, answer):
     # Crée un panel pour la question
