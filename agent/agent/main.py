@@ -32,22 +32,9 @@ def run_ai(prompt):
         res = agent.run(augmented_prompt)
         return clean_unicode(res)
 
-def format_output(question, answer):
-    # Format the question and answer as plain text
-    question_text = f"Question:\n{question}\n"
-    answer_text = f"Réponse:\n{answer}\n"
-    
-    return question_text, answer_text
-
 def main(prompt):
-    # Affiche la question et obtient la réponse
     res = run_ai(prompt)
-    
-    # Formate et affiche le résultat
-    question_text, answer_text = format_output(prompt, res)
-    console.print(question_text)
-    console.print("\n")
-    console.print(answer_text)
+    console.print(res)
 
 def main_cli():
     if len(sys.argv) != 2:
@@ -59,4 +46,3 @@ def main_cli():
 
 if __name__ == "__main__":
     main_cli()
-    
