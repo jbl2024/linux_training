@@ -48,9 +48,6 @@ def format_output(question, answer):
     return question_panel, answer_panel
 
 def main(prompt):
-    # Efface l'écran
-    console.clear()
-    
     # Affiche la question et obtient la réponse
     res = run_ai(prompt)
     
