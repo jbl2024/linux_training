@@ -9,7 +9,7 @@ console = Console()
 
 def clean_unicode(text):
     """Convertit les séquences Unicode échappées en caractères normaux"""
-    return bytes(text, 'ascii').decode('unicode-escape')
+    return text.encode().decode('unicode-escape')
 
 def run_ai(prompt):
     model_id = "meta-llama/Llama-3.3-70B-Instruct"
