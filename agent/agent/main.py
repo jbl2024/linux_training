@@ -2,7 +2,6 @@ import sys
 import time
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.panel import Panel
 from rich.markdown import Markdown
 from smolagents import ToolCallingAgent, DuckDuckGoSearchTool, HfApiModel
 
@@ -34,32 +33,21 @@ def run_ai(prompt):
         return clean_unicode(res)
 
 def format_output(question, answer):
-    # Crée un panel pour la question
-    question_panel = Panel(
-        f"[bold blue]Question:[/bold blue]\n{question}",
-        title="Votre demande",
-        border_style="blue"
-    )
+    # Format the question and answer as plain text
+    question_text = f"Question:\n{question}\n"
+    answer_text = f"Réponse:\n{answer}\n"
     
-    # Crée un panel pour la réponse avec support Markdown
-    answer_md = Markdown(answer)
-    answer_panel = Panel(
-        answer_md,
-        title="Réponse",
-        border_style="green"
-    )
-    
-    return question_panel, answer_panel
+    return question_text, answer_text
 
 def main(prompt):
     # Affiche la question et obtient la réponse
     res = run_ai(prompt)
     
     # Formate et affiche le résultat
-    question_panel, answer_panel = format_output(prompt, res)
-    console.print(question_panel)
+    question_text, answer_text = format_output(prompt, res)
+    console.print(question_text)
     console.print("\n")
-    console.print(answer_panel)
+    console.print(answer_text)
 
 def main_cli():
     if len(sys.argv) != 2:
@@ -71,3 +59,4 @@ def main_cli():
 
 if __name__ == "__main__":
     main_cli()
+    
