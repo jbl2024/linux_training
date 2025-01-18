@@ -1,0 +1,29 @@
+# Ignorer le dossier venv dans le sous-répertoire agent
+agent/venv/
+
+# Ignorer les fichiers de configuration spécifiques à l'environnement
+.env
+*.env
+
+# Ignorer les fichiers de cache Python
+agent/**/*.pyc
+agent/**/*.pyo
+agent/**/__pycache__/
+
+# Ignorer les fichiers et dossiers générés
+.DS_Store
+*.log
+*.tmp
+*.bak
+
+# Ignorer les outils de versionnement
+.git/
+.gitignore
+.svn/
+
+# Ignorer les fichiers de documentation ou d'exemple
+*.md
+docs/
+
+# Ignorer d'autres environnements virtuels possibles
+agent/**/*.egg-info
