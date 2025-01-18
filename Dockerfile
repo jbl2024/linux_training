@@ -21,6 +21,9 @@ ENV LC_ALL=fr_FR.UTF-8
 # Changer les permissions du répertoire de l'utilisateur
 RUN chown -R appuser:appuser /home/appuser
 
+RUN mkdir /home/appuser/tutoriels/
+COPY ./tutoriels/* /home/appuser/tutoriels/
+
 # Exposer le port par défaut de ttyd
 EXPOSE 7681
 

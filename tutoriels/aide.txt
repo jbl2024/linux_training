@@ -1,0 +1,108 @@
+RFC Bases de Linux
+=================
+
+### 1. Introduction
+Ce document fournit une liste des commandes de base sous Linux organisées par catégorie. Il est destiné aux nouveaux utilisateurs pour se familiariser avec les commandes et outils essentiels.
+
+### 2. Commandes Shell
+
+#### 2.1 Navigation
+- `pwd` : Affiche le répertoire de travail actuel.
+- `ls` : Liste les fichiers et répertoires.
+  - Options :
+    - `-l` : Format de liste détaillé.
+    - `-a` : Affiche les fichiers cachés.
+- `cd [répertoire]` : Change de répertoire.
+  - Exemple : `cd /home/user`
+- `mkdir [répertoire]` : Crée un nouveau répertoire.
+- `rmdir [répertoire]` : Supprime un répertoire vide.
+- `rm [fichier/répertoire]` : Supprime des fichiers ou des répertoires.
+  - Utiliser `-r` pour supprimer des répertoires de manière récursive.
+
+#### 2.2 Opérations sur les fichiers
+- `touch [fichier]` : Crée un fichier vide.
+- `cp [source] [destination]` : Copie des fichiers ou répertoires.
+  - Utiliser `-r` pour les répertoires.
+- `mv [source] [destination]` : Déplace ou renomme des fichiers.
+- `cat [fichier]` : Affiche le contenu d'un fichier.
+- `less [fichier]` : Affiche un fichier page par page.
+- `head [fichier]` : Affiche les 10 premières lignes d'un fichier.
+- `tail [fichier]` : Affiche les 10 dernières lignes d'un fichier.
+  - Utiliser `-f` pour suivre les modifications.
+
+### 3. Variables d'environnement
+- `echo $VARIABLE` : Affiche la valeur d'une variable d'environnement.
+- `export VARIABLE=valeur` : Définit une variable d'environnement.
+- `env` : Affiche toutes les variables d'environnement.
+- `unset VARIABLE` : Supprime une variable d'environnement.
+
+### 4. Gestion des processus
+- `ps` : Affiche les processus en cours.
+  - Options :
+    - `-aux` : Vue détaillée de tous les processus.
+- `top` : Affiche l'utilisation des ressources en temps réel.
+- `kill [PID]` : Termine un processus par son ID.
+- `killall [nom]` : Termine tous les processus par nom.
+- `jobs` : Liste les travaux en arrière-plan.
+- `bg [travail]` : Reprend un travail en arrière-plan.
+- `fg [travail]` : Ramène un travail en avant-plan.
+
+### 5. Permissions sur les fichiers
+- `chmod [mode] [fichier]` : Modifie les permissions d'un fichier.
+  - Exemple : `chmod 755 script.sh`
+- `chown [propriétaire] [fichier]` : Change le propriétaire d'un fichier.
+  - Exemple : `chown user:group file.txt`
+- `ls -l` : Affiche les permissions des fichiers.
+
+### 6. Édition avec Vim
+- `vim [fichier]` : Ouvre un fichier avec Vim.
+  - Modes :
+    - Appuyer sur `i` pour passer en mode insertion.
+    - Appuyer sur `Esc` pour revenir au mode normal.
+  - Sauvegarder et quitter :
+    - `:w` : Sauvegarder les modifications.
+    - `:q` : Quitter.
+    - `:wq` : Sauvegarder et quitter.
+    - `:q!` : Quitter sans sauvegarder.
+- Recherche :
+  - `/motif` : Recherche "motif" vers l'avant.
+  - `?motif` : Recherche "motif" vers l'arrière.
+- Navigation :
+  - `h` : Aller à gauche.
+  - `j` : Descendre.
+  - `k` : Monter.
+  - `l` : Aller à droite.
+
+### 7. Commandes réseau
+- `ping [hôte]` : Teste la connectivité vers un hôte.
+- `curl [URL]` : Récupère des données depuis une URL.
+- `wget [URL]` : Télécharge des fichiers depuis une URL.
+- `ifconfig` : Affiche les interfaces réseau.
+- `netstat` : Affiche les connexions réseau.
+- `ssh [utilisateur]@[hôte]` : Connexion à un serveur distant via SSH.
+
+### 8. Gestion des disques
+- `df -h` : Affiche l'utilisation de l'espace disque.
+- `du -h [répertoire/fichier]` : Affiche la taille d'un fichier ou répertoire.
+- `mount [périphérique] [point de montage]` : Monte un périphérique.
+- `umount [périphérique/point de montage]` : Démonte un périphérique.
+- `lsblk` : Liste les périphériques de stockage.
+
+### 9. Gestion des paquets (Exemples : Basé sur Debian)
+- `apt update` : Met à jour la liste des paquets.
+- `apt upgrade` : Met à jour les paquets installés.
+- `apt install [paquet]` : Installe un paquet.
+- `apt remove [paquet]` : Supprime un paquet.
+
+### 10. Informations système
+- `uname -a` : Affiche les informations sur le système.
+- `hostname` : Affiche le nom d'hôte du système.
+- `uptime` : Affiche depuis combien de temps le système fonctionne.
+- `whoami` : Affiche l'utilisateur courant.
+
+### 11. Aide et manuel
+- `[commande] --help` : Affiche l'aide d'une commande.
+- `man [commande]` : Affiche la page de manuel d'une commande.
+- `info [commande]` : Affiche des informations sur une commande.
+
+### Fin du RFC

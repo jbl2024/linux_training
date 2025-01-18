@@ -1,0 +1,93 @@
+RFC Commandes GREP
+===================
+
+### 1. Introduction
+Ce document fournit une liste de commandes de base et avancées pour l'utilisation de `grep`, un outil puissant de recherche dans les fichiers. Les exemples vont des plus simples aux plus complexes pour permettre une prise en main progressive.
+
+### 2. Commandes de base
+
+#### 2.1 Recherche simple
+- `grep "motif" fichier.txt` : Recherche une chaîne de caractères dans un fichier.
+  - Exemple : `grep "erreur" log.txt`
+
+#### 2.2 Ignorer la casse
+- `grep -i "motif" fichier.txt` : Recherche sans tenir compte des majuscules/minuscules.
+  - Exemple : `grep -i "linux" README.md`
+
+#### 2.3 Afficher les numéros de ligne
+- `grep -n "motif" fichier.txt` : Affiche les numéros de ligne correspondants.
+  - Exemple : `grep -n "TODO" code.c`
+
+#### 2.4 Compter les correspondances
+- `grep -c "motif" fichier.txt` : Affiche le nombre de correspondances trouvées.
+  - Exemple : `grep -c "utilisateur" data.csv`
+
+### 3. Options intermédiaires
+
+#### 3.1 Recherche dans plusieurs fichiers
+- `grep "motif" fichier1.txt fichier2.txt` : Recherche dans plusieurs fichiers.
+  - Exemple : `grep "root" /etc/passwd /etc/group`
+
+#### 3.2 Recherche récursive
+- `grep -r "motif" /chemin/du/répertoire` : Recherche dans un répertoire et ses sous-répertoires.
+  - Exemple : `grep -r "erreur" /var/log`
+
+#### 3.3 Filtrer les fichiers binaires
+- `grep -I "motif" fichier` : Ignore les fichiers binaires.
+  - Exemple : `grep -rI "password" /etc`
+
+#### 3.4 Afficher les lignes ne correspondant pas
+- `grep -v "motif" fichier.txt` : Affiche les lignes qui ne contiennent pas le motif.
+  - Exemple : `grep -v "^#" config.conf`
+
+### 4. Expressions régulières de base
+
+#### 4.1 Correspondance au début d'une ligne
+- `grep "^motif" fichier.txt` : Correspond aux lignes commençant par "motif".
+  - Exemple : `grep "^root" /etc/passwd`
+
+#### 4.2 Correspondance à la fin d'une ligne
+- `grep "motif$" fichier.txt` : Correspond aux lignes se terminant par "motif".
+  - Exemple : `grep ".log$" fichiers.txt`
+
+#### 4.3 Utilisation des méta-caractères
+- `grep "[abc]" fichier.txt` : Correspond aux lignes contenant "a", "b" ou "c".
+  - Exemple : `grep "[0-9]" data.txt`
+
+### 5. Commandes avancées
+
+#### 5.1 Recherche avec contexte
+- `grep -A [n] "motif" fichier.txt` : Affiche "n" lignes après chaque correspondance.
+  - Exemple : `grep -A 3 "erreur" log.txt`
+- `grep -B [n] "motif" fichier.txt` : Affiche "n" lignes avant chaque correspondance.
+  - Exemple : `grep -B 2 "warning" log.txt`
+- `grep -C [n] "motif" fichier.txt` : Affiche "n" lignes avant et après chaque correspondance.
+  - Exemple : `grep -C 2 "timeout" log.txt`
+
+#### 5.2 Recherche avec expressions régulières étendues
+- `grep -E "motif1|motif2" fichier.txt` : Correspond à "motif1" ou "motif2".
+  - Exemple : `grep -E "erreur|warning" log.txt`
+
+#### 5.3 Recherche avec fichiers multiples et affichage du nom
+- `grep -H "motif" fichier*` : Affiche le nom du fichier pour chaque correspondance.
+  - Exemple : `grep -H "function" *.c`
+
+#### 5.4 Suppression des doublons
+- `grep "motif" fichier.txt | uniq` : Supprime les lignes dupliquées dans les résultats.
+  - Exemple : `grep "erreur" log.txt | uniq`
+
+#### 5.5 Affichage uniquement des noms de fichiers correspondants
+- `grep -l "motif" fichier*` : Affiche uniquement les noms de fichiers contenant une correspondance.
+  - Exemple : `grep -l "main" *.c`
+
+### 6. Combinaison avec d'autres commandes
+
+#### 6.1 Redirection et pipes
+- `cat fichier.txt | grep "motif"` : Recherche dans la sortie d'une autre commande.
+  - Exemple : `dmesg | grep "error"`
+
+#### 6.2 Recherche dans les processus actifs
+- `ps aux | grep "nom_du_processus"` : Filtre les processus actifs.
+  - Exemple : `ps aux | grep "apache"`
+
+### Fin du RFC
