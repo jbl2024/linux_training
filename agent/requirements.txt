@@ -1,1 +1,2 @@
 smolagents==1.4.1
+rich==13.9.4
