@@ -43,23 +43,16 @@ RUN python3 -m venv /home/appuser/agent/venv
 COPY ./agent /home/appuser/agent/
 COPY ./tutoriels/* /home/appuser/tutoriels/
 
-# Donner temporairement les droits à appuser pour l'installation
-RUN chown -R appuser:appuser /home/appuser
+# Important : donner les droits lecture/exécution via le groupe
+RUN chown -R root:appuser /home/appuser/agent /home/appuser/tutoriels
 
 # Passer à l'utilisateur non-root pour l'installation
-USER appuser
 WORKDIR /home/appuser
 
 # Installer les dépendances et l'agent
 RUN /home/appuser/agent/venv/bin/pip install --no-cache-dir -r /home/appuser/agent/requirements.txt && \
     cd /home/appuser/agent && \
     /home/appuser/agent/venv/bin/pip install -e .
-
-# Repasser en root pour configurer les permissions finales
-USER root
-
-# Configurer les permissions finales : lecture seule pour agent et tutoriels
-RUN chown -R root:appuser /home/appuser/agent /home/appuser/tutoriels
 
 # Repasser à l'utilisateur non-root pour l'exécution
 USER appuser
