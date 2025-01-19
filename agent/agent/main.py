@@ -1,4 +1,5 @@
 import codecs
+import re
 import sys
 import time
 
@@ -11,12 +12,20 @@ console = Console()
 
 
 def clean_unicode(text):
-    """Nettoie les séquences Unicode échappées de manière robuste"""
-    try:
-        text = text.encode('utf-8').decode('unicode_escape')
-        return text
-    except Exception as e:
-        console.print(f"[yellow]Attention: problème de décodage ({str(e)})[/yellow]")
+    """
+    Decodes Unicode escape sequences (e.g., \\u00e9) in a string.
+    If the string is already decoded, it returns the string as-is.
+    """
+    # Check if the string contains any Unicode escape sequences
+    if re.search(r"\\u[0-9a-fA-F]{4}", text):
+        try:
+            # Decode the Unicode escape sequences
+            return text.encode("utf-8").decode("unicode_escape")
+        except UnicodeDecodeError:
+            # If decoding fails, return the original string
+            return text
+    else:
+        # If no escape sequences are found, return the string as-is
         return text
 
 
@@ -38,10 +47,21 @@ def run_ai(prompt):
             # Spécifier l'encodage UTF-8 dans le prompt
             augmented_prompt = f"""
             # encoding: utf-8
-            Tu réponds à cette question, de manière précise mais directe et toujours en français : 
-            
+            Tu réponds à cette question toujours en français.
+            Voici le format de réponse que tu dois toujours respecter :
+                ## réponse directe ##
+                Ici la réponse directe
+
+                ## Explications détaillées ##
+                Ici des explications qui permettent d'en savoir plus et d'aller plus loins
+
+                ## Informations sur la sécurité ##
+                Ici des informations sur la sécurité et les précautions à prendre si la commande est dangereuse
+                        
             Question: 
             {prompt}
+
+            Réponds à la question en respectant le format demandé (reponse directe, explications, securité)
             """
             res = agent.run(augmented_prompt)
             return clean_unicode(res)
