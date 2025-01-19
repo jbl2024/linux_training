@@ -48,6 +48,7 @@ def run_ai(prompt):
             augmented_prompt = f"""
             # encoding: utf-8
             Tu réponds à cette question toujours en français.
+            S'il s'agit d'une question technique pars du principe que c'est sur linux redhat
             Voici le format de réponse que tu dois toujours respecter :
                 ## réponse directe ##
                 Ici la réponse directe
@@ -61,7 +62,7 @@ def run_ai(prompt):
             Question: 
             {prompt}
 
-            Réponds à la question en respectant le format demandé (reponse directe, explications, securité)
+            Réponds à la question en respectant le format demandé (réponse directe, explications, securité)
             """
             res = agent.run(augmented_prompt)
             return clean_unicode(res)
