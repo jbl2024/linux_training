@@ -36,15 +36,17 @@ ENV LANG=fr_FR.UTF-8 \
 # Créer la structure des répertoires
 RUN mkdir -p /home/appuser/tutoriels/ /home/appuser/agent
 
-# Copier les fichiers du projet agent
+# Configurer l'environnement Python
+RUN python3 -m venv /home/appuser/agent/venv
+
+# Copier les fichiers du projet
 COPY ./agent /home/appuser/agent/
 COPY ./tutoriels/* /home/appuser/tutoriels/
 
-# Configurer l'environnement Python et installer agent
-RUN python3 -m venv /home/appuser/agent/venv && \
-    chown -R appuser:appuser /home/appuser
+# Donner temporairement les droits à appuser pour l'installation
+RUN chown -R appuser:appuser /home/appuser
 
-# Passer à l'utilisateur non-root
+# Passer à l'utilisateur non-root pour l'installation
 USER appuser
 WORKDIR /home/appuser
 
@@ -52,6 +54,18 @@ WORKDIR /home/appuser
 RUN /home/appuser/agent/venv/bin/pip install --no-cache-dir -r /home/appuser/agent/requirements.txt && \
     cd /home/appuser/agent && \
     /home/appuser/agent/venv/bin/pip install -e .
+
+# Repasser en root pour configurer les permissions finales
+USER root
+
+# Configurer les permissions finales : lecture seule pour agent et tutoriels
+RUN chown -R root:appuser /home/appuser/agent /home/appuser/tutoriels && \
+    chmod -R 555 /home/appuser/agent /home/appuser/tutoriels && \
+    chown -R appuser:appuser /home/appuser/agent/venv
+
+# Repasser à l'utilisateur non-root pour l'exécution
+USER appuser
+WORKDIR /home/appuser
 
 # Exposer le port par défaut de ttyd
 EXPOSE 7681
