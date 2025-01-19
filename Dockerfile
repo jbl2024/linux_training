@@ -60,8 +60,7 @@ USER root
 
 # Configurer les permissions finales : lecture seule pour agent et tutoriels
 RUN chown -R root:appuser /home/appuser/agent /home/appuser/tutoriels && \
-    chmod -R 555 /home/appuser/agent /home/appuser/tutoriels && \
-    chown -R appuser:appuser /home/appuser/agent/venv
+    chmod -R 555 /home/appuser/agent /home/appuser/tutoriels
 
 # Repasser à l'utilisateur non-root pour l'exécution
 USER appuser
