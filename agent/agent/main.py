@@ -50,7 +50,7 @@ def run_ai(prompt):
             Tu réponds à cette question toujours en français.
             S'il s'agit d'une question technique pars du principe que c'est sur linux redhat
             Voici le format de réponse que tu dois toujours respecter :
-                ## réponse directe ##
+                ## Réponse directe ##
                 Ici la réponse directe
 
                 ## Explications détaillées ##
