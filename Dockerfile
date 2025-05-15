@@ -16,6 +16,7 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     python3-venv \
+    ksh \
     git && \
     locale-gen fr_FR.UTF-8 && \
     update-locale LANG=fr_FR.UTF-8 && \
