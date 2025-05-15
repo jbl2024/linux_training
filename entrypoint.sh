@@ -9,4 +9,5 @@ iptables -A INPUT -p tcp --dport 7681 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 7681 -j ACCEPT
 
 # Passer à l'utilisateur non-privilégié pour ttyd
+cd /home/appuser
 exec gosu appuser ttyd --writable bash
