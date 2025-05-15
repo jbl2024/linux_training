@@ -1,5 +1,0 @@
-venv
-agent_cli.egg-info
-cassandre_cli.egg-info
-__pycache__
-.envrc.private
