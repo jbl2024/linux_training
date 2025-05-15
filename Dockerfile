@@ -38,12 +38,6 @@ RUN chown -R root:appuser /home/appuser/tutoriels
 EXPOSE 7681
 
 # CMD final : configure iptables (en root), puis lance ttyd en appuser
-CMD bash -c '\
-iptables -F && \
-iptables -P OUTPUT DROP && \
-iptables -P INPUT DROP && \
-iptables -A INPUT -i lo -j ACCEPT && \
-iptables -A OUTPUT -o lo -j ACCEPT && \
-iptables -A INPUT -p tcp --dport 7681 -j ACCEPT && \
-iptables -A OUTPUT -p tcp --sport 7681 -j ACCEPT && \
-exec gosu appuser ttyd --writable bash'
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
