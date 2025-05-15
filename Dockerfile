@@ -2,10 +2,8 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Création de l'utilisateur
 RUN useradd -ms /bin/bash appuser
 
-# Installation minimale sans paquets orientés réseau
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     vim \
@@ -14,7 +12,8 @@ RUN apt-get update && \
     locales \
     tzdata \
     man-db \
-    ksh && \
+    ksh \
+    iptables && \
     locale-gen fr_FR.UTF-8 && \
     update-locale LANG=fr_FR.UTF-8 && \
     ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime && \
@@ -22,26 +21,28 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Variables d'environnement de locale
 ENV LANG=fr_FR.UTF-8 \
     LANGUAGE=fr_FR:fr \
     LC_ALL=fr_FR.UTF-8
 
-# Création du répertoire de tutoriels
 RUN mkdir -p /home/appuser/tutoriels/
-
-# Copie des fichiers
 COPY ./tutoriels/* /home/appuser/tutoriels/
-
-# Attribution des droits
 RUN chown -R root:appuser /home/appuser/tutoriels
 
-# Droits utilisateur
+# Script firewall pour bloquer upload/download
+RUN echo '#!/bin/bash\n\
+iptables -F\n\
+iptables -P OUTPUT DROP\n\
+iptables -P INPUT DROP\n\
+iptables -A INPUT -i lo -j ACCEPT\n\
+iptables -A OUTPUT -o lo -j ACCEPT\n\
+iptables -A INPUT -p tcp --dport 7681 -j ACCEPT\n\
+iptables -A OUTPUT -p tcp --sport 7681 -j ACCEPT' > /etc/firewall.sh && \
+    chmod +x /etc/firewall.sh
+
 USER appuser
 WORKDIR /home/appuser
 
-# Port d’exposition pour ttyd
 EXPOSE 7681
 
-# Commande de lancement
-CMD ["ttyd", "--writable", "bash"]
+CMD ["bash", "-c", "/etc/firewall.sh && ttyd --writable bash"]
